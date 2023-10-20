@@ -7,8 +7,10 @@ import { useEmployeeProfile } from "../../context/EmployeeProfileContext";
 
 function CreateForm() {
     const {
+        setValue,
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm({ mode: "onBlur", resolver: yupResolver(schema) });
     const { employeeProfile, setEmployeeProfile } = useEmployeeProfile();
@@ -16,12 +18,13 @@ function CreateForm() {
         setEmployeeProfile(data);
         console.log(employeeProfile.FirstName);
         console.log(data);
+        reset();
     };
     console.log(errors);
     return (
         <form id="create-employee" onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col items-center mt-12 mb-10 font-lato lg:flex-row lg:justify-around">
-                <div className="w-full max-w-2xl lg:w-1/2">
+            <div className="flex flex-col items-center mt-12 mb-10 font-lato lg:flex-row lg:justify-around ">
+                <div className="w-full max-w-2xl lg:w-1/2 sm:px-24">
                     <InputField
                         label="First Name"
                         register={register}
@@ -32,10 +35,12 @@ function CreateForm() {
                         register={register}
                         errors={errors.LastName && errors.LastName.message}
                     />
+
                     <InputField
                         label="Date of Birth"
                         type="date"
                         register={register}
+                        setValue={setValue}
                         errors={
                             errors.DateofBirth && errors.DateofBirth.message
                         }
@@ -43,18 +48,20 @@ function CreateForm() {
 
                     <InputField
                         label="Start Date"
-                        placeholder="mm/dd/yyyy"
+                        type="date"
                         register={register}
+                        setValue={setValue}
                         errors={errors.StartDate && errors.StartDate.message}
                     />
+
                     <SelectField
                         label="Department"
                         register={register}
                         errors={errors.Department && errors.Department.message}
                     />
                 </div>
-                <fieldset className="w-full max-w-2xl border border-gray-400 rounded p-4 lg:w-5/12 lg:px-10 lg:pl-20">
-                    <legend className="text-xl text-gray-500 font-bold text-center">
+                <fieldset className="w-full max-w-2xl border border-gray-400 rounded px-6 lg:w-5/12  sm:px-24 lg:px-10">
+                    <legend className="text-xl text-gray-500 font-bold text-center ">
                         Address
                     </legend>
                     <InputField
