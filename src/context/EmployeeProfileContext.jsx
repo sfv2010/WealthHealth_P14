@@ -7,7 +7,7 @@ export const useEmployeeProfile = () => {
     return useContext(EmployeeProfileContext);
 };
 
-export const EmployeeProfileProvider = ({ children }) => {
+const EmployeeProfileProvider = ({ children }) => {
     const [employeeProfile, setEmployeeProfile] = useState({});
 
     return (
@@ -20,3 +20,4 @@ export const EmployeeProfileProvider = ({ children }) => {
 EmployeeProfileProvider.propTypes = {
     children: PropTypes.node.isRequired,
 };
+export default EmployeeProfileProvider;
