@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import InputField from "./InputField";
 import SelectField from "./SelectField";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,12 +6,12 @@ import { schema } from "../../schema/validationSchema";
 import { useEmployeeProfile } from "../../context/EmployeeProfileContext";
 
 function CreateForm() {
+    //CreateForm
     const {
-        setValue,
-        register,
+        control,
         handleSubmit,
-        reset,
         formState: { errors },
+        reset,
     } = useForm({ mode: "onBlur", resolver: yupResolver(schema) });
     const { employeeProfile, setEmployeeProfile } = useEmployeeProfile();
     const onSubmit = (data) => {
@@ -20,66 +20,125 @@ function CreateForm() {
         console.log(data);
         reset();
     };
+
     console.log(errors);
     return (
         <form id="create-employee" onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col items-center mt-12 mb-10 font-lato lg:flex-row lg:justify-around ">
-                <div className="w-full max-w-2xl lg:w-1/2 sm:px-24">
-                    <InputField
-                        label="First Name"
-                        register={register}
-                        errors={errors.FirstName && errors.FirstName.message}
+            <div className="flex flex-col items-center mt-12 mb-10 font-lato sm:px-28 md:px-1 md:flex-row md:justify-between xl:px-20 xl:justify-center">
+                <div className="w-full max-w-2xl md:w-1/2 xl:w-2/5">
+                    <Controller
+                        name="FirstName"
+                        control={control}
+                        render={({ field }) => (
+                            <InputField
+                                label="First Name"
+                                control={field}
+                                errors={
+                                    errors.FirstName && errors.FirstName.message
+                                }
+                            />
+                        )}
                     />
-                    <InputField
-                        label="Last Name"
-                        register={register}
-                        errors={errors.LastName && errors.LastName.message}
+                    <Controller
+                        name="LastName"
+                        control={control}
+                        render={({ field }) => (
+                            <InputField
+                                label="Last Name"
+                                control={field}
+                                errors={
+                                    errors.LastName && errors.LastName.message
+                                }
+                            />
+                        )}
                     />
-
-                    <InputField
-                        label="Date of Birth"
-                        type="date"
-                        register={register}
-                        setValue={setValue}
-                        errors={
-                            errors.DateofBirth && errors.DateofBirth.message
-                        }
+                    <Controller
+                        name="DateBirth"
+                        control={control}
+                        render={({ field }) => (
+                            <InputField
+                                label="Date of Birth"
+                                type="date"
+                                control={field}
+                                errors={
+                                    errors.DateBirth && errors.DateBirth.message
+                                }
+                            />
+                        )}
                     />
-
-                    <InputField
-                        label="Start Date"
-                        type="date"
-                        register={register}
-                        setValue={setValue}
-                        errors={errors.StartDate && errors.StartDate.message}
+                    <Controller
+                        name="StartDate"
+                        control={control}
+                        render={({ field }) => (
+                            <InputField
+                                label="Start Date"
+                                type="date"
+                                control={field}
+                                errors={
+                                    errors.StartDate && errors.StartDate.message
+                                }
+                            />
+                        )}
                     />
-
-                    <SelectField
-                        label="Department"
-                        register={register}
-                        errors={errors.Department && errors.Department.message}
+                    <Controller
+                        name="Department"
+                        control={control}
+                        render={({ field }) => (
+                            <SelectField
+                                label="Department"
+                                control={field}
+                                errors={
+                                    errors.Department &&
+                                    errors.Department.message
+                                }
+                            />
+                        )}
                     />
                 </div>
-                <fieldset className="w-full max-w-2xl border border-gray-400 rounded px-6 lg:w-5/12  sm:px-24 lg:px-10">
-                    <legend className="text-xl text-gray-500 font-bold text-center ">
+                <fieldset className="w-full max-w-2xl border border-gray-400 rounded p-4 text-center md:w-5/12 xl:w-4/12 xl:p-1 ">
+                    <legend className="text-xl text-gray-500 font-bold text-center">
                         Address
                     </legend>
-                    <InputField
-                        label="Street"
-                        register={register}
-                        errors={errors.Street && errors.Street.message}
+                    <Controller
+                        name="Street"
+                        control={control}
+                        render={({ field }) => (
+                            <InputField
+                                label="Street"
+                                control={field}
+                                errors={errors.Street && errors.Street.message}
+                            />
+                        )}
                     />
-                    <InputField
-                        label="City"
-                        register={register}
-                        errors={errors.City && errors.City.message}
+                    <Controller
+                        name="City"
+                        control={control}
+                        render={({ field }) => (
+                            <InputField
+                                label="City"
+                                control={field}
+                                errors={errors.City && errors.City.message}
+                            />
+                        )}
                     />
-                    <SelectField label=" State" register={register} />
-                    <InputField
-                        label="Zip Cod"
-                        type="number"
-                        register={register}
-                        errors={errors.ZipCod && errors.ZipCod.message}
+                    <Controller
+                        name="State"
+                        control={control}
+                        render={({ field }) => (
+                            <SelectField label=" State" control={field} />
+                        )}
+                    />
+                    <Controller
+                        name="ZipCod"
+                        control={control}
+                        render={({ field }) => (
+                            <InputField
+                                label="Zip Cod"
+                                type="number"
+                                control={field}
+                                errors={errors.ZipCod && errors.ZipCod.message}
+                            />
+                        )}
                     />
                 </fieldset>
             </div>

@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { format, getMonth, getYear } from "date-fns";
+import { useEffect } from "react";
 import DatePicker from "react-datepicker";
+import { format, isDate, getMonth, getYear } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import "font-awesome/css/font-awesome.min.css";
 
@@ -9,13 +10,13 @@ function InputField({
     label,
     type = "text",
     placeholder = "",
-    register,
-    setValue,
+    control,
     errors,
 }) {
-    const name = label.replaceAll(" ", "");
+    const { name, value, onChange } = control;
     const initialDate = new Date();
     const [selectDate, setSelectDate] = useState(initialDate);
+
     const range = (start, end, step) => {
         const result = [];
         for (let i = start; i <= end; i += step) {
@@ -38,49 +39,40 @@ function InputField({
         "November",
         "December",
     ];
-    // const inputValue = selectDate;
 
-    // if (inputValue > initialDate) {
-    // }
+    useEffect(() => {
+        if (isDate(value)) {
+            setSelectDate(value);
+        }
+        console.log(value);
+    }, [value, selectDate]);
 
-    const handleChange = (date) => {
-        setSelectDate(date);
-        const formattedDate = format(date, "MM/dd/yyyy");
-        setValue(name, formattedDate, { shouldValidate: true });
-        console.log(date);
+    const handleDateChange = (date) => {
+        const formattedDate = date ? format(date, "MM/dd/yyyy") : "";
+        onChange(formattedDate);
+        console.log(formattedDate);
     };
 
     return (
-        <div className="mb-6 w-full">
-            <label className="block text-black font-bold pb-1" htmlFor={name}>
+        <div className="mb-6">
+            <label className="block text-black font-bold  pr-4" htmlFor={name}>
                 {label}
                 <span className="text-red-500"> *</span>
             </label>
             {type === "date" ? (
                 <div className="grid">
                     <DatePicker
+                        selected={value ? new Date(value) : null}
+                        minDate={new Date(1940, 0, 1)}
+                        maxDate={initialDate}
+                        onChange={handleDateChange}
                         dateFormat="MM/dd/yyyy"
-                        maxDate={selectDate}
-                        selected={selectDate}
-                        onChange={handleChange}
-                        className="w-full"
-                        customInput={
-                            <div className="relative">
-                                <i className="absolute right-5 top-3 text-green-700 fa fa-calendar"></i>
-                                <input
-                                    className="bg-gray-200 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-700 "
-                                    type="text"
-                                    id={name}
-                                    name={name}
-                                    placeholder="mm/dd/yyyy"
-                                    // value={format(selectDate, "MM/dd/yyyy")}
-                                    {...register(name, { required: true })}
-                                    onChange={(e) =>
-                                        setSelectDate(new Date(e.target.value))
-                                    }
-                                />
-                            </div>
-                        }
+                        placeholderText="  Please select a date"
+                        showIcon
+                        icon="fa fa-calendar"
+                        id={name}
+                        name={name}
+                        className="bg-gray-200 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-700 md:w-11/12 lg:w-10/12"
                         renderCustomHeader={({
                             date,
                             changeYear,
@@ -136,12 +128,13 @@ function InputField({
                 </div>
             ) : (
                 <input
-                    className="bg-gray-200 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-700 "
+                    className="bg-gray-200 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-700 md:w-11/12 lg:w-10/12"
                     type={type}
                     id={name}
                     name={name}
                     placeholder={placeholder}
-                    {...register(name, { required: true })}
+                    value={value || ""}
+                    onChange={(e) => onChange(e.target.value)}
                 />
             )}
 
@@ -153,9 +146,9 @@ InputField.propTypes = {
     label: PropTypes.string.isRequired,
     type: PropTypes.string,
     placeholder: PropTypes.string,
-    register: PropTypes.func,
-    setValue: PropTypes.func,
+    control: PropTypes.object,
     errors: PropTypes.string,
+    trigger: PropTypes.objectOf(PropTypes.func),
 };
 
 export default InputField;
