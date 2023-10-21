@@ -20,17 +20,18 @@ export const schema = yup.object().shape({
         .max(30)
         .min(2),
 
-    DateofBirth: yup
+    DateBirth: yup
         .string()
-        .required("Date of Birth is required")
+        .required("Date of Birth is required. Date must be in the past.")
+        .max(new Date(), "Date must be in the past")
         .matches(
             /^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/\d{4}$/,
             "Please enter your date of birth in mm/dd/yyyy format"
-        )
-        .required("Date of Birth is required"),
+        ),
     StartDate: yup
         .string()
-        .required("Start Date is required")
+        .required("Start Date is required. Date must be in the past.")
+        .max(new Date(), "Date must be in the past")
         .matches(
             /^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/\d{4}$/,
             "Please enter your start date in mm/dd/yyyy format"
