@@ -1,10 +1,9 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
-import { useEffect } from "react";
 import DatePicker from "react-datepicker";
-import { format, isDate, getMonth, getYear } from "date-fns";
+import { format, getMonth, getYear, isDate } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import "font-awesome/css/font-awesome.min.css";
+import { useState } from "react";
 
 function InputField({
     label,
@@ -15,8 +14,7 @@ function InputField({
 }) {
     const { name, value, onChange } = control;
     const initialDate = new Date();
-    const [selectDate, setSelectDate] = useState(initialDate);
-
+    const [error, setError] = useState("");
     const range = (start, end, step) => {
         const result = [];
         for (let i = start; i <= end; i += step) {
@@ -40,17 +38,36 @@ function InputField({
         "December",
     ];
 
-    useEffect(() => {
-        if (isDate(value)) {
-            setSelectDate(value);
-        }
-        console.log(value);
-    }, [value, selectDate]);
-
     const handleDateChange = (date) => {
         const formattedDate = date ? format(date, "MM/dd/yyyy") : "";
-        onChange(formattedDate);
-        console.log(formattedDate);
+        if (date && isDate(date)) {
+            console.log(formattedDate);
+            onChange(formattedDate);
+            setError("");
+        } else {
+            onChange("");
+        }
+    };
+    const isValidDate = (dateString) => {
+        const datePattern =
+            /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
+        if (!datePattern.test(dateString)) {
+            return false;
+        }
+        const inputDate = new Date(dateString);
+        if (inputDate > initialDate) {
+            return false;
+        }
+        return true;
+    };
+
+    const handleDateBlur = (e) => {
+        const inputDate = e.target.value;
+
+        if (!isValidDate(inputDate)) {
+            onChange("");
+            setError("Please enter your date of birth in mm/dd/yyyy format");
+        }
     };
 
     return (
@@ -67,11 +84,13 @@ function InputField({
                         maxDate={initialDate}
                         onChange={handleDateChange}
                         dateFormat="MM/dd/yyyy"
-                        placeholderText="  Please select a date"
+                        placeholderText="Please select a date"
                         showIcon
                         icon="fa fa-calendar"
                         id={name}
                         name={name}
+                        autoComplete="off"
+                        onBlur={handleDateBlur}
                         className="bg-gray-200 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-700 md:w-11/12 lg:w-10/12"
                         renderCustomHeader={({
                             date,
@@ -139,6 +158,7 @@ function InputField({
             )}
 
             <p className="text-red-500">{errors}</p>
+            {error && <div className="text-red-500">{error}</div>}
         </div>
     );
 }
