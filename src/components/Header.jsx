@@ -19,7 +19,7 @@ function Header() {
                 />
             </div>
             <div className="flex-1 flex justify-center  flex-nowrap min-w-full md:justify-end sm:min-w-0 ">
-                <button className="text-1xl text-green-500 font-lato p-2 px-4 rounded-md  md:text-2xl  transition-all  duration-300 hover:bg-green-500 hover:text-white">
+                <button className="text-1xl text-custom-502 font-youngSerif p-2 px-4 rounded-md  md:text-2xl  transition-all  duration-300 hover:bg-custom-502 hover:text-white">
                     {location.pathname === "/employee" ? (
                         <Link to="/">Home</Link>
                     ) : (
