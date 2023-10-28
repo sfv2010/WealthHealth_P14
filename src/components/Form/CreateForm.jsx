@@ -4,19 +4,20 @@ import SelectField from "./SelectField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../schema/validationSchema";
 import { useEmployeeProfile } from "../../context/EmployeeProfileContext";
+import { departments } from "../../data/departements";
+import { states } from "../../data/states";
 
 function CreateForm() {
-    //CreateForm
     const {
         control,
         handleSubmit,
         formState: { errors },
         reset,
     } = useForm({ mode: "onBlur", resolver: yupResolver(schema) });
-    const { employeeProfile, setEmployeeProfile } = useEmployeeProfile();
+
+    const { setEmployeeProfile } = useEmployeeProfile();
     const onSubmit = (data) => {
         setEmployeeProfile(data);
-        console.log(employeeProfile.FirstName);
         console.log(data);
         reset();
     };
@@ -63,6 +64,7 @@ function CreateForm() {
                                 errors={
                                     errors.DateBirth && errors.DateBirth.message
                                 }
+                                reset={reset}
                             />
                         )}
                     />
@@ -91,11 +93,12 @@ function CreateForm() {
                                     errors.Department &&
                                     errors.Department.message
                                 }
+                                options={departments}
                             />
                         )}
                     />
                 </div>
-                <fieldset className="w-full max-w-2xl border border-gray-400 rounded p-4 text-center md:w-5/12 xl:w-4/12 xl:p-1 ">
+                <fieldset className="w-full max-w-2xl border border-gray-400 rounded p-4 text-center md:w-5/12 xl:w-4/12 md:p-1 ">
                     <legend className="text-xl text-gray-500 font-bold text-center">
                         Address
                     </legend>
@@ -125,18 +128,25 @@ function CreateForm() {
                         name="State"
                         control={control}
                         render={({ field }) => (
-                            <SelectField label=" State" control={field} />
+                            <SelectField
+                                label="State"
+                                control={field}
+                                errors={errors.State && errors.State.message}
+                                options={states}
+                            />
                         )}
                     />
                     <Controller
-                        name="ZipCod"
+                        name="ZipCode"
                         control={control}
                         render={({ field }) => (
                             <InputField
-                                label="Zip Cod"
+                                label="Zip Code"
                                 type="number"
                                 control={field}
-                                errors={errors.ZipCod && errors.ZipCod.message}
+                                errors={
+                                    errors.ZipCode && errors.ZipCode.message
+                                }
                             />
                         )}
                     />
