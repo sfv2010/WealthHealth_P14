@@ -36,11 +36,14 @@ export const schema = yup.object().shape({
             /^(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])\/\d{4}$/,
             "Please enter your start date in mm/dd/yyyy format"
         ),
+    Department: yup.string().required("Department is required"),
 
     Street: yup.string().required("Street is required").max(50).min(2),
     City: yup.string().required("City is required").max(50).min(2),
-    ZipCod: yup
+    State: yup.string().required("State is required"),
+
+    ZipCode: yup
         .string()
         .matches(/^[0-9]{5}$/, "Zip code must be a 5-digit number")
-        .required("Zip Cod is required"),
+        .required("Zip Code is required"),
 });
