@@ -8,7 +8,7 @@ function SelectField({ label, control, errors, options }) {
                 <span className="text-red-500"> *</span>
             </label>
             <select
-                className="bg-gray-200 border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-700 md:w-11/12 lg:w-10/12"
+                className="bg-gray-200 border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight  focus:bg-white focus:outline-green-700 md:w-11/12 lg:w-10/12"
                 name={name}
                 id={name}
                 value={value || ""}
@@ -17,7 +17,7 @@ function SelectField({ label, control, errors, options }) {
                     Please select
                 </option>
                 {options.map((option) => (
-                    <option key={option.name} value={option.name}>
+                    <option key={option.name} value={option.abbreviation}>
                         {option.name}
                     </option>
                 ))}
