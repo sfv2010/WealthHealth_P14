@@ -3,9 +3,12 @@ import InputField from "./InputField";
 import SelectField from "./SelectField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../schema/validationSchema";
-import { useEmployeeProfile } from "../../context/EmployeeProfileContext";
+
+// import { useEmployeeProfile } from "../../context/EmployeeProfileContext";
 import { departments } from "../../data/departements";
 import { states } from "../../data/states";
+import { useContext } from "react";
+import { EmployeeProfileContext } from "../../context/EmployeeProfileContext";
 
 function CreateForm() {
     const {
@@ -15,46 +18,46 @@ function CreateForm() {
         reset,
     } = useForm({ mode: "onBlur", resolver: yupResolver(schema) });
 
-    const { setEmployeeProfile } = useEmployeeProfile();
+    const { employeeProfile, addEmployee } = useContext(EmployeeProfileContext);
     const onSubmit = (data) => {
-        setEmployeeProfile(data);
-        console.log(data);
+        addEmployee(data);
+        // localStorage.setItem("employeeData", JSON.stringify(data));
         reset();
     };
+    console.log("employeeProfile", employeeProfile);
 
-    console.log(errors);
     return (
         <form id="create-employee" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col items-center mt-12 mb-10 font-lato sm:px-28 md:px-1 md:flex-row md:justify-between xl:px-20 xl:justify-center">
                 <div className="w-full max-w-2xl md:w-1/2 xl:w-2/5">
                     <Controller
-                        name="FirstName"
+                        name="firstName"
                         control={control}
                         render={({ field }) => (
                             <InputField
                                 label="First Name"
                                 control={field}
                                 errors={
-                                    errors.FirstName && errors.FirstName.message
+                                    errors.firstName && errors.firstName.message
                                 }
                             />
                         )}
                     />
                     <Controller
-                        name="LastName"
+                        name="lastName"
                         control={control}
                         render={({ field }) => (
                             <InputField
                                 label="Last Name"
                                 control={field}
                                 errors={
-                                    errors.LastName && errors.LastName.message
+                                    errors.lastName && errors.lastName.message
                                 }
                             />
                         )}
                     />
                     <Controller
-                        name="DateBirth"
+                        name="dateOfBirth"
                         control={control}
                         render={({ field }) => (
                             <InputField
@@ -62,14 +65,15 @@ function CreateForm() {
                                 type="date"
                                 control={field}
                                 errors={
-                                    errors.DateBirth && errors.DateBirth.message
+                                    errors.dateOfBirth &&
+                                    errors.dateOfBirth.message
                                 }
                                 reset={reset}
                             />
                         )}
                     />
                     <Controller
-                        name="StartDate"
+                        name="startDate"
                         control={control}
                         render={({ field }) => (
                             <InputField
@@ -77,21 +81,21 @@ function CreateForm() {
                                 type="date"
                                 control={field}
                                 errors={
-                                    errors.StartDate && errors.StartDate.message
+                                    errors.startDate && errors.startDate.message
                                 }
                             />
                         )}
                     />
                     <Controller
-                        name="Department"
+                        name="department"
                         control={control}
                         render={({ field }) => (
                             <SelectField
                                 label="Department"
                                 control={field}
                                 errors={
-                                    errors.Department &&
-                                    errors.Department.message
+                                    errors.department &&
+                                    errors.department.message
                                 }
                                 options={departments}
                             />
@@ -103,41 +107,41 @@ function CreateForm() {
                         Address
                     </legend>
                     <Controller
-                        name="Street"
+                        name="street"
                         control={control}
                         render={({ field }) => (
                             <InputField
                                 label="Street"
                                 control={field}
-                                errors={errors.Street && errors.Street.message}
+                                errors={errors.street && errors.street.message}
                             />
                         )}
                     />
                     <Controller
-                        name="City"
+                        name="city"
                         control={control}
                         render={({ field }) => (
                             <InputField
                                 label="City"
                                 control={field}
-                                errors={errors.City && errors.City.message}
+                                errors={errors.city && errors.city.message}
                             />
                         )}
                     />
                     <Controller
-                        name="State"
+                        name="state"
                         control={control}
                         render={({ field }) => (
                             <SelectField
                                 label="State"
                                 control={field}
-                                errors={errors.State && errors.State.message}
+                                errors={errors.state && errors.state.message}
                                 options={states}
                             />
                         )}
                     />
                     <Controller
-                        name="ZipCode"
+                        name="zipCode"
                         control={control}
                         render={({ field }) => (
                             <InputField
@@ -145,7 +149,7 @@ function CreateForm() {
                                 type="number"
                                 control={field}
                                 errors={
-                                    errors.ZipCode && errors.ZipCode.message
+                                    errors.zipCode && errors.zipCode.message
                                 }
                             />
                         )}
