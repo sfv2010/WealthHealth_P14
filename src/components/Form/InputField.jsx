@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
-import { format, getMonth, getYear, isDate } from "date-fns";
+import { format, getMonth, getYear } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import "font-awesome/css/font-awesome.min.css";
 import { useState } from "react";
@@ -39,14 +39,12 @@ function InputField({
     ];
 
     const handleDateChange = (date) => {
-        const formattedDate = date ? format(date, "MM/dd/yyyy") : "";
-        if (date && isDate(date)) {
-            console.log(formattedDate);
-            onChange(formattedDate);
-            setError("");
-        } else {
-            onChange("");
-        }
+        //date is passed as a string and converted to a JavaScript Date object by new Date(date).
+        const formattedDate = date
+            ? format(new Date(date), "MM/dd/yyyy")
+            : date;
+        onChange(formattedDate);
+        setError("");
     };
     const isValidDate = (dateString) => {
         const datePattern =
@@ -147,7 +145,7 @@ function InputField({
                 </div>
             ) : (
                 <input
-                    className="bg-gray-200 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-700 md:w-11/12 lg:w-10/12"
+                    className="bg-gray-200 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:bg-white focus:outline-green-700 md:w-11/12 lg:w-10/12"
                     type={type}
                     id={name}
                     name={name}
