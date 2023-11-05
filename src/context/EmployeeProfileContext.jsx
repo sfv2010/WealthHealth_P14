@@ -1,18 +1,21 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import PropTypes from "prop-types";
 
 export const EmployeeProfileContext = createContext();
 
-export const useEmployeeProfile = () => {
-    return useContext(EmployeeProfileContext);
-};
+// export const useEmployeeProfile = () => {
+//     return useContext(EmployeeProfileContext);
+// };
 
-const EmployeeProfileProvider = ({ children }) => {
-    const [employeeProfile, setEmployeeProfile] = useState({});
+export const EmployeeProfileProvider = ({ children }) => {
+    const [employeeProfile, setEmployeeProfile] = useState([]);
+    const addEmployee = (employee) => {
+        setEmployeeProfile((state) => [...state, employee]);
+    };
 
     return (
         <EmployeeProfileContext.Provider
-            value={{ employeeProfile, setEmployeeProfile }}>
+            value={{ employeeProfile, addEmployee }}>
             {children}
         </EmployeeProfileContext.Provider>
     );
@@ -20,4 +23,3 @@ const EmployeeProfileProvider = ({ children }) => {
 EmployeeProfileProvider.propTypes = {
     children: PropTypes.node.isRequired,
 };
-export default EmployeeProfileProvider;
