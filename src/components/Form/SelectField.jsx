@@ -5,14 +5,15 @@ function SelectField({ label, control, errors, options }) {
         <div className="mb-6">
             <label className="block text-black font-bold  pr-4" htmlFor={name}>
                 {label}
-                <span className="text-red-500"> *</span>
+                <span className="text-custom-504 "> *</span>
             </label>
             <select
                 className="bg-gray-200 border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight  focus:bg-white focus:outline-green-700 md:w-11/12 lg:w-10/12"
                 name={name}
                 id={name}
                 value={value || ""}
-                onChange={(e) => onChange(e.target.value)}>
+                onChange={(e) => onChange(e.target.value)}
+                aria-describedby="error-message">
                 <option value="" disabled>
                     Please select
                 </option>
@@ -22,7 +23,9 @@ function SelectField({ label, control, errors, options }) {
                     </option>
                 ))}
             </select>
-            <p className="text-red-500">{errors}</p>
+            <p className="text-custom-504" id="error-message">
+                {errors}
+            </p>
         </div>
     );
 }

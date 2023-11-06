@@ -72,7 +72,7 @@ function InputField({
         <div className="mb-6">
             <label className="block text-black font-bold  pr-4" htmlFor={name}>
                 {label}
-                <span className="text-red-500"> *</span>
+                <span className="text-custom-504"> *</span>
             </label>
             {type === "date" ? (
                 <div className="grid">
@@ -82,7 +82,7 @@ function InputField({
                         maxDate={initialDate}
                         onChange={handleDateChange}
                         dateFormat="MM/dd/yyyy"
-                        placeholderText="Please select a date"
+                        placeholderText="MM/dd/yyyy Please select"
                         showIcon
                         icon="fa fa-calendar"
                         id={name}
@@ -90,6 +90,7 @@ function InputField({
                         autoComplete="off"
                         onBlur={handleDateBlur}
                         className="bg-gray-200 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-700 md:w-11/12 lg:w-10/12"
+                        // aria-describedby="error-message"
                         renderCustomHeader={({
                             date,
                             changeYear,
@@ -152,11 +153,24 @@ function InputField({
                     placeholder={placeholder}
                     value={value || ""}
                     onChange={(e) => onChange(e.target.value)}
+                    aria-describedby="error-message"
                 />
             )}
 
-            <p className="text-red-500">{errors}</p>
-            {error && <div className="text-red-500">{error}</div>}
+            <p
+                className="text-custom-504"
+                id="error-message"
+                aria-live="polite">
+                {errors}
+            </p>
+            {error && (
+                <p
+                    className="text-custom-504"
+                    id="error-message"
+                    aria-live="polite">
+                    {error}
+                </p>
+            )}
         </div>
     );
 }
