@@ -33,7 +33,7 @@ function Pagination({
                     Previous
                 </button>
                 {Array.from({ length: pageCount }, (_, i) => (
-                    <span
+                    <button
                         key={i}
                         className={`border-2 border-custom-501 py-1 px-2 mx-px sm:py-2 sm:px-4  hover:border-custom-500 rounded cursor-pointer ${
                             pageIndex === i ? "bg-custom-501" : ""
@@ -44,7 +44,7 @@ function Pagination({
                             }
                         }}>
                         {i + 1}
-                    </span>
+                    </button>
                 ))}
                 <button
                     className={`py-1 px-2 mr-1 sm:py-2 sm:px-4 rounded bg-gray-300 hover:bg-custom-502 hover:text-white ${
