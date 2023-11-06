@@ -13,7 +13,7 @@ function SelectField({ label, control, errors, options }) {
                 id={name}
                 value={value || ""}
                 onChange={(e) => onChange(e.target.value)}
-                aria-describedby="error-message">
+                aria-describedby={`error-message-${name}`}>
                 <option value="" disabled>
                     Please select
                 </option>
@@ -23,7 +23,7 @@ function SelectField({ label, control, errors, options }) {
                     </option>
                 ))}
             </select>
-            <p className="text-custom-504" id="error-message">
+            <p className="text-custom-504" id={`error-message-${name}`}>
                 {errors}
             </p>
         </div>
