@@ -80,22 +80,44 @@ function EmployeeList() {
             <div className="overflow-x-auto shadow-md">
                 <table
                     {...getTableProps()}
+                    role="table"
+                    tabIndex={0}
                     className="table-fixed border-solid border-2 border-green-800 border-spacing-0 shadow-2xl box-border ">
                     <thead>
                         {headerGroups.map((headerGroup, headerGroupIndex) => (
                             <tr
+                                // tabIndex={0}
                                 key={headerGroupIndex}
                                 {...headerGroup.getHeaderGroupProps()}>
                                 {headerGroup.headers.map(
                                     (column, columnIndex) => (
                                         <th
+                                            tabIndex={0}
                                             className="border-solid border-2 border-green-800 bg-custom-500 text-white py-1 pl-2 w-[100px] lg:w-[130px] text-xs lg:text-base whitespace-nowrap"
                                             key={columnIndex}
                                             {...column.getHeaderProps(
                                                 column.getSortByToggleProps()
-                                            )}>
+                                            )}
+                                            aria-label={`Sort by ${column.render(
+                                                "Header"
+                                            )}`}
+                                            aria-sort={
+                                                column.isSorted
+                                                    ? column.isSortedDesc
+                                                        ? "descending"
+                                                        : "ascending"
+                                                    : "none"
+                                            }>
                                             {column.render("Header")}{" "}
-                                            <span className="text-sm text-custom-502 pl-1">
+                                            <button
+                                                className="text-sm text-custom-502 pl-1"
+                                                aria-label={`Sort by ${
+                                                    column.isSorted
+                                                        ? column.isSortedDesc
+                                                            ? "descending"
+                                                            : "ascending"
+                                                        : "ascending"
+                                                }`}>
                                                 {!column.isSorted && (
                                                     <i className="fa fa-sort"></i>
                                                 )}
@@ -105,7 +127,7 @@ function EmployeeList() {
                                                 {column.isSorted &&
                                                     column.isSortedDesc &&
                                                     "🔽"}
-                                            </span>
+                                            </button>
                                         </th>
                                     )
                                 )}
@@ -117,7 +139,8 @@ function EmployeeList() {
                             prepareRow(row);
                             return (
                                 <tr
-                                    className="even:bg-custom-501 hover:bg-custom-502 hover:text-white "
+                                    tabIndex={0}
+                                    className="even:bg-custom-501 hover:bg-custom-503 hover:text-white "
                                     key={rowIndex}
                                     {...row.getRowProps()}>
                                     {row.cells.map((cell, cellIndex) => {
