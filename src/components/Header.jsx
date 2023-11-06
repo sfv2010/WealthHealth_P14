@@ -7,7 +7,9 @@ function Header() {
         <div className="mt-3 flex justify-between items-center flex-wrap container mx-auto">
             <Link to="/" className="flex-1">
                 {" "}
-                <h1 className="text-2xl px-4 text-green-700 font-youngSerif md:text-4xl">
+                <h1
+                    className="text-2xl px-4 text-custom-505 font-youngSerif md:text-4xl"
+                    title="Go to homepage">
                     HRnet
                 </h1>
             </Link>
@@ -20,7 +22,7 @@ function Header() {
                 />
             </div>
             <div className="flex-1 flex justify-center  flex-nowrap min-w-full md:justify-end sm:min-w-0 ">
-                <button className="text-1xl text-custom-502 font-youngSerif p-2 px-4 rounded-md  md:text-2xl  transition-all  duration-300 hover:bg-custom-502 hover:text-white">
+                <button className="text-1xl text-custom-505 font-youngSerif p-2 px-4 rounded-md  md:text-2xl  transition-all  duration-300 hover:bg-custom-502 hover:text-white">
                     {" "}
                     {location.pathname === "/employee" ? (
                         <Link to="/">Home</Link>
