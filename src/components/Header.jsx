@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import logoWH from "../assets/logoWH.png";
+import logoWH from "../assets/logoWH.webp";
 
 function Header() {
     const location = useLocation();
@@ -19,6 +19,8 @@ function Header() {
                     src={logoWH}
                     alt="A logo with a collection of olive-colored leaves"
                     className="flex-1 "
+                    width="100%"
+                    height="100%"
                 />
             </div>
             <div className="flex-1 flex justify-center  flex-nowrap min-w-full md:justify-end sm:min-w-0 ">
