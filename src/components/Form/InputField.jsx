@@ -90,7 +90,6 @@ function InputField({
                         autoComplete="off"
                         onBlur={handleDateBlur}
                         className="bg-gray-200 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-green-700 md:w-11/12 lg:w-10/12"
-                        // aria-describedby="error-message"
                         renderCustomHeader={({
                             date,
                             changeYear,
@@ -153,13 +152,13 @@ function InputField({
                     placeholder={placeholder}
                     value={value || ""}
                     onChange={(e) => onChange(e.target.value)}
-                    aria-describedby="error-message"
+                    aria-describedby={`error-message-${name}`}
                 />
             )}
 
             <p
                 className="text-custom-504"
-                id="error-message"
+                id={`error-message-${name}`}
                 aria-live="polite">
                 {errors}
             </p>
