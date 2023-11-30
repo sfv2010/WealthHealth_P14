@@ -86,7 +86,6 @@ function EmployeeList() {
                     <thead>
                         {headerGroups.map((headerGroup, headerGroupIndex) => (
                             <tr
-                                // tabIndex={0}
                                 key={headerGroupIndex}
                                 {...headerGroup.getHeaderGroupProps()}>
                                 {headerGroup.headers.map(
