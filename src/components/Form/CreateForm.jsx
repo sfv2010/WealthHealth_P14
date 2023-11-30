@@ -3,14 +3,19 @@ import InputField from "./InputField";
 import SelectField from "./SelectField";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../schema/validationSchema";
+import PropTypes from "prop-types";
 
-// import { useEmployeeProfile } from "../../context/EmployeeProfileContext";
 import { departments } from "../../data/departements";
 import { states } from "../../data/states";
 import { useContext } from "react";
 import { EmployeeProfileContext } from "../../context/EmployeeProfileContext";
 
-function CreateForm() {
+/**
+ * Component for creating an employee form.
+ * @param {Function} props.setModalOpen - Function to set the modal open state.
+ */
+
+function CreateForm({ setModalOpen }) {
     const {
         control,
         handleSubmit,
@@ -18,13 +23,14 @@ function CreateForm() {
         reset,
     } = useForm({ mode: "onBlur", resolver: yupResolver(schema) });
 
-    const { employeeProfile, addEmployee } = useContext(EmployeeProfileContext);
+    const { addEmployee } = useContext(EmployeeProfileContext);
+
     const onSubmit = (data) => {
         addEmployee(data);
-        // localStorage.setItem("employeeData", JSON.stringify(data));
+        setModalOpen ? setModalOpen(true) : null;
+
         reset();
     };
-    console.log("employeeProfile", employeeProfile);
 
     return (
         <form id="create-employee" onSubmit={handleSubmit(onSubmit)}>
@@ -167,5 +173,9 @@ function CreateForm() {
         </form>
     );
 }
+
+CreateForm.propTypes = {
+    setModalOpen: PropTypes.func,
+};
 
 export default CreateForm;
