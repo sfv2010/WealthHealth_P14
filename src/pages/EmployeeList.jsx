@@ -17,7 +17,7 @@ function EmployeeList() {
     const [searchValue, setSearchValue] = useState("");
     const combinedData = useMemo(() => {
         if (employeeProfile && employeeProfile.length > 0) {
-            return employeeProfile.concat(data);
+            return data.concat(employeeProfile).reverse();
         }
         return data;
     }, [employeeProfile]);
