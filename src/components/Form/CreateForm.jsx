@@ -33,7 +33,10 @@ function CreateForm({ setModalOpen }) {
     };
 
     return (
-        <form id="create-employee" onSubmit={handleSubmit(onSubmit)}>
+        <form
+            id="create-employee"
+            data-testid="create-employee"
+            onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col items-center mt-12 mb-10 font-lato sm:px-28 md:px-1 md:flex-row md:justify-between xl:px-20 xl:justify-center">
                 <div className="w-full max-w-2xl md:w-1/2 xl:w-2/5">
                     <Controller

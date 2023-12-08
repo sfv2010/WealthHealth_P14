@@ -153,6 +153,7 @@ function InputField({
                     value={value || ""}
                     onChange={(e) => onChange(e.target.value)}
                     aria-describedby={`error-message-${name}`}
+                    data-testid={name}
                 />
             )}
 

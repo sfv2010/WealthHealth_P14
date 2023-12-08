@@ -11,6 +11,7 @@ function SelectField({ label, control, errors, options }) {
                 className="bg-gray-200 border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight  focus:bg-white focus:outline-green-700 md:w-11/12 lg:w-10/12"
                 name={name}
                 id={name}
+                data-testid={name}
                 value={value || ""}
                 onChange={(e) => onChange(e.target.value)}
                 aria-describedby={`error-message-${name}`}>

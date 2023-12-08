@@ -3,7 +3,6 @@ function Pagination({
     pageSize,
     pageIndex,
     pageCount,
-    //employeeProfile,
     combinedData,
     nextPage,
     previousPage,
@@ -11,12 +10,11 @@ function Pagination({
 }) {
     return (
         <div className="text-xs sm:text-base sm:flex justify-between items-center mt-2 ">
-            <div className="block text-black pr-2 my-4">
+            <div className="block text-black pr-2 my-4" data-testid="showing">
                 Showing <span>{pageIndex * pageSize + 1}</span> to{" "}
                 <span>
                     {pageIndex === pageCount - 1
-                        ? // ? employeeProfile.length
-                          combinedData.length
+                        ? combinedData.length
                         : (pageIndex + 1) * pageSize}
                 </span>{" "}
                 of <span>{combinedData.length}</span> entries{" "}
@@ -65,7 +63,6 @@ Pagination.propTypes = {
     pageSize: PropTypes.number,
     pageIndex: PropTypes.number,
     pageCount: PropTypes.number,
-    // employeeProfile: PropTypes.array,
     combinedData: PropTypes.array,
     nextPage: PropTypes.func,
     previousPage: PropTypes.func,

@@ -4,7 +4,9 @@ import logoWH from "../assets/logoWH.webp";
 function Header() {
     const location = useLocation();
     return (
-        <div className="mt-3 flex justify-between items-center flex-wrap container mx-auto">
+        <div
+            data-testid="div1"
+            className="mt-3 flex justify-between items-center flex-wrap container mx-auto">
             <Link to="/" className="flex-1">
                 {" "}
                 <h1

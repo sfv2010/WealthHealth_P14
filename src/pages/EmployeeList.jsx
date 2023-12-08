@@ -26,7 +26,6 @@ function EmployeeList() {
         getTableProps,
         getTableBodyProps,
         headerGroups,
-        // rows,
         prepareRow,
         setGlobalFilter,
         state: { pageIndex, pageSize },
@@ -40,7 +39,6 @@ function EmployeeList() {
         {
             columns,
             data: combinedData,
-            // data: employeeProfile,
             filterTypes: {
                 global: (rows, id, filterValue) => {
                     return rows.filter((row) => {

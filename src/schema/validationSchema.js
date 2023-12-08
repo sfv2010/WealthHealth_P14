@@ -6,7 +6,7 @@ export const schema = yup.object().shape({
         .required("First Name is required")
         .matches(
             /^[A-ÿ]{2,}[A-ÿ\-\s]*$/,
-            "Please use only letters in your First Name"
+            "Please use only letters and enter at least 2 characters."
         )
         .max(30)
         .min(2),
@@ -15,7 +15,7 @@ export const schema = yup.object().shape({
         .required("Last Name is required")
         .matches(
             /^[A-ÿ]{2,}[A-ÿ\-\s]*$/,
-            "Please use only letters in your Last Name"
+            "Please use only letters and enter at least 2 characters."
         )
         .max(30)
         .min(2),
