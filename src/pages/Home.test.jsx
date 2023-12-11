@@ -1,7 +1,7 @@
-import { fireEvent, screen } from "@testing-library/react";
-import { beforeEach, describe, expect, test, vi } from "vitest";
+import { screen } from "@testing-library/react";
+import { describe, expect, test, vi } from "vitest";
 import Home from "./Home";
-import Modal from "my-react-modal-sv";
+// import Modal from "my-react-modal-sv";
 import customRender from "../utils/customRender";
 
 describe("Test Home Component", () => {

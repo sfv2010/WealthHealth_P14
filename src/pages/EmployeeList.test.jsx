@@ -27,7 +27,31 @@ describe("Test EmployeeList Component", () => {
         const SmithCell = SmithCells[0];
         expect(SmithCell).toBeInTheDocument();
     });
-    test("calculates combinedData correctly", () => {
-        screen.getByRole("table");
-    });
 });
+// test("should sort data when clicking on the sorting button", () => {
+//     const { getByText, getAllByRole } = customRender(<EmployeeList />, data);
+
+//     const columnHeader = getByText("First Name");
+
+//     fireEvent.click(columnHeader);
+
+//     // Get the table rows and check if the data is sorted
+//     const tableRows = getAllByRole("row");
+
+//     for (let i = 0; i < tableRows.length - 1; i++) {
+//         const currentRow = tableRows[i];
+//         const nextRow = tableRows[i + 1];
+
+//         const nextValueElement = nextRow.querySelector('th[role="cell"]');
+
+//         console.log("nextValueElement:", nextValueElement);
+//         const currentValue = currentRow.querySelector(
+//             '[aria-label="Sort by ascending"]'
+//         ).textContent;
+//         console.log("currentValue:", currentValue);
+//         const nextValue = nextRow.querySelector(
+//             '[aria-label="Sort by ascending"]'
+//         ).textContent;
+//         expect(currentValue <= nextValue).toBeTruthy();
+//     }
+// });
