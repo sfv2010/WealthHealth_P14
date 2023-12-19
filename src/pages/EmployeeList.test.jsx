@@ -1,18 +1,20 @@
-import { fireEvent, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, test } from "vitest";
 import EmployeeList from "./EmployeeList";
 import customRender from "../utils/customRender";
-import { data } from "../data/table";
+import { EmployeeProfileProvider } from "../context/EmployeeProfileContext";
+// import { data } from "../data/table";
 
 describe("Test EmployeeList Component", () => {
     beforeEach(() => {
-        customRender(<EmployeeList />, data);
+        customRender(<EmployeeList />, []);
     });
 
     test("is rendered correctly", async () => {
         expect(screen.getByText("Current Employees")).toBeInTheDocument();
     });
-    test("handles search functionality correctly", () => {
+
+    test("handles search functionality correctly with context data", () => {
         const searchInput = screen.getByPlaceholderText("Search by ...");
         fireEvent.change(searchInput, { target: { value: "Ken" } });
         const kenCells = screen.getAllByText("Ken");
@@ -23,35 +25,66 @@ describe("Test EmployeeList Component", () => {
         const salesCell = salesCells[0];
         expect(salesCell).toBeInTheDocument();
 
-        const SmithCells = screen.getAllByText("Smith");
-        const SmithCell = SmithCells[0];
-        expect(SmithCell).toBeInTheDocument();
+        const smithCells = screen.getAllByText("Smith");
+        const smithCell = smithCells[0];
+        expect(smithCell).toBeInTheDocument();
+    });
+
+    test("handles search functionality correctly with empty data", () => {
+        const searchInput = screen.getByPlaceholderText("Search by ...");
+        fireEvent.change(searchInput, { target: { value: "Ren" } });
+
+        const kenCells = screen.queryAllByText("Ren");
+        expect(kenCells.length).toBe(0);
     });
 });
-// test("should sort data when clicking on the sorting button", () => {
-//     const { getByText, getAllByRole } = customRender(<EmployeeList />, data);
+test("handles search functionality correctly with context data", async () => {
+    const { rerender } = render(
+        <EmployeeProfileProvider>
+            <EmployeeList />
+        </EmployeeProfileProvider>
+    );
+    // EmployeeProfileContext.Providerから値を取得
 
-//     const columnHeader = getByText("First Name");
+    const mockEmployeeProfileData = [
+        {
+            firstName: "Ren",
+            lastName: "Mi",
+            startDate: "10/13/2010",
+            department: "Sales",
+            dateOfBirth: "10/21/1970",
+            street: "153 Street brad franck",
+            city: "New York",
+            state: "NY",
+            zipCode: "88110",
+        },
+    ];
+    rerender(
+        <EmployeeProfileProvider>
+            <EmployeeList employeeProfile={mockEmployeeProfileData} />
+        </EmployeeProfileProvider>
+    );
 
-//     fireEvent.click(columnHeader);
+    const searchInput = screen.getByPlaceholderText("Search by ...");
 
-//     // Get the table rows and check if the data is sorted
-//     const tableRows = getAllByRole("row");
+    fireEvent.change(searchInput, { target: { value: "Ren" } });
 
-//     for (let i = 0; i < tableRows.length - 1; i++) {
-//         const currentRow = tableRows[i];
-//         const nextRow = tableRows[i + 1];
+    const testId = await screen.findAllByTestId("tr-employee");
 
-//         const nextValueElement = nextRow.querySelector('th[role="cell"]');
+    console.log(testId);
+    expect(testId).toHaveLength(1);
+    // expect(await screen.findByText("Ren")).toBeInTheDocument();
 
-//         console.log("nextValueElement:", nextValueElement);
-//         const currentValue = currentRow.querySelector(
-//             '[aria-label="Sort by ascending"]'
-//         ).textContent;
-//         console.log("currentValue:", currentValue);
-//         const nextValue = nextRow.querySelector(
-//             '[aria-label="Sort by ascending"]'
-//         ).textContent;
-//         expect(currentValue <= nextValue).toBeTruthy();
-//     }
-// });
+    // fireEvent.change(searchInput, { target: { value: "Ken" } });
+    // const kenCells = screen.getAllByText("Ken");
+    // const desiredCell = kenCells[0];
+    // expect(desiredCell).toBeInTheDocument();
+
+    // const salesCells = screen.getAllByText("Sales");
+    // const salesCell = salesCells[0];
+    // expect(salesCell).toBeInTheDocument();
+
+    // const smithCells = screen.getAllByText("Smith");
+    // const smithCell = smithCells[0];
+    // expect(smithCell).toBeInTheDocument();
+});

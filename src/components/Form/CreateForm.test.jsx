@@ -15,12 +15,11 @@ describe("Test CreateForm Component", () => {
         const mockSetModalOpen = vi.fn();
 
         customRender(<CreateForm setModalOpen={mockSetModalOpen} />);
-        // customRender(<CreateForm />);
+
         const firstName = screen.getByTestId("firstName");
         const lastName = screen.getByTestId("lastName");
         const dateOfBirth = screen.getAllByRole("textbox")[2];
         const startDate = screen.getAllByRole("textbox")[3];
-        // const startDate = document.getElementById("startDate");
         const department = screen.getByTestId("department");
         const street = screen.getByTestId("street");
         const city = screen.getByTestId("city");
@@ -36,7 +35,7 @@ describe("Test CreateForm Component", () => {
         fireEvent.change(city, { target: { value: "New York" } });
         fireEvent.change(state, { target: { value: "AL" } });
         fireEvent.change(zipCode, { target: { value: "77250" } });
-        console.log(state);
+
         // userEvent.click(screen.getByText("Save"));
         fireEvent.submit(screen.getByTestId("create-employee"));
         expect(screen.queryByText("Last Name is required")).toBeNull();
