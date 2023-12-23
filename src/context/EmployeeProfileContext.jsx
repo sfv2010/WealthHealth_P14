@@ -3,10 +3,6 @@ import PropTypes from "prop-types";
 
 export const EmployeeProfileContext = createContext();
 
-// export const useEmployeeProfile = () => {
-//     return useContext(EmployeeProfileContext);
-// };
-
 export const EmployeeProfileProvider = ({ children }) => {
     const [employeeProfile, setEmployeeProfile] = useState([]);
     const addEmployee = (employee) => {
