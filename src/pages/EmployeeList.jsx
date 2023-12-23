@@ -11,15 +11,20 @@ import { EmployeeProfileContext } from "../context/EmployeeProfileContext";
 import Pagination from "../components/List/Pagination";
 import Search from "../components/List/Search";
 import PaginationSelect from "../components/List/PaginationSelect";
+/**
+ * EmployeeList component displays a table of current employees with pagination, sorting, and searching capabilities.
+ *
+ * @component
+ * @returns {JSX.Element} - The rendered EmployeeList component.
+ */
 
 function EmployeeList() {
     const { employeeProfile } = useContext(EmployeeProfileContext);
     const [searchValue, setSearchValue] = useState("");
     const combinedData = useMemo(() => {
-        if (employeeProfile && employeeProfile.length > 0) {
-            return data.concat(employeeProfile).reverse();
-        }
-        return data;
+        return employeeProfile && employeeProfile.length > 0
+            ? data.concat(employeeProfile).reverse()
+            : data;
     }, [employeeProfile]);
 
     const {
@@ -136,6 +141,7 @@ function EmployeeList() {
                             prepareRow(row);
                             return (
                                 <tr
+                                    data-testid="tr-employee"
                                     tabIndex={0}
                                     className="even:bg-custom-501 hover:bg-custom-503 hover:text-white "
                                     key={rowIndex}
