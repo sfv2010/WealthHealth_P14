@@ -36,7 +36,6 @@ describe("Test CreateForm Component", () => {
         fireEvent.change(state, { target: { value: "AL" } });
         fireEvent.change(zipCode, { target: { value: "77250" } });
 
-        // userEvent.click(screen.getByText("Save"));
         fireEvent.submit(screen.getByTestId("create-employee"));
         expect(screen.queryByText("Last Name is required")).toBeNull();
 
