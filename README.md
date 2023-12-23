@@ -1,6 +1,6 @@
 # Projet 14 - HRnet : Convert jQuery library to React
 
-## installation
+## Installation
 
 Clone this repo :
 
@@ -21,3 +21,7 @@ $ npm run dev
 ```
 
 ![HRnet](screen.png)
+
+## Tests
+
+![Tests](screen-test.png)
