@@ -33,7 +33,7 @@ describe("Test EmployeeList Component", () => {
 
 test("handles search functionality correctly with empty data", () => {
     customRender(<EmployeeList />, []);
-    console.log(document.body.innerHTML);
+    //console.log(document.body.innerHTML);
     const searchInput = screen.getByPlaceholderText("Search by ...");
     fireEvent.change(searchInput, { target: { value: "Ren" } });
 
