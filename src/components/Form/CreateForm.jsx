@@ -21,7 +21,7 @@ function CreateForm({ setModalOpen }) {
         handleSubmit,
         formState: { errors },
         reset,
-    } = useForm({ mode: "onBlur", resolver: yupResolver(schema) });
+    } = useForm({ mode: "onSubmit", resolver: yupResolver(schema) });
 
     const { addEmployee } = useContext(EmployeeProfileContext);
 
