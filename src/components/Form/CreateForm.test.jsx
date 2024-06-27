@@ -16,7 +16,8 @@ describe("Test CreateForm Component", () => {
 
         customRender(<CreateForm setModalOpen={mockSetModalOpen} />);
 
-        const firstName = screen.getByTestId("firstName");
+        // const firstName = screen.getByTestId("firstName");
+        const firstName = screen.getByRole("textbox", { name: "First Name *" });
         const lastName = screen.getByTestId("lastName");
         const dateOfBirth = screen.getAllByRole("textbox")[2];
         const startDate = screen.getAllByRole("textbox")[3];
